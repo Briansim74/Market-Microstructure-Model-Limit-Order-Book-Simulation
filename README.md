@@ -1,6 +1,6 @@
 # Order Matching Engine (C++ / Python)
 
-High-performance Central Limit Order Book (CLOB) simulation replicating exchange-style price-time priority matching, supporting market / limit orders, cancellations, and real-time PnL tracking.
+High-performance Central Limit Order Book (CLOB) simulation replicating exchange-style **price-time priority matching**, supporting market / limit orders, cancellations, and real-time PnL tracking.
 
 Designed to model execution mechanics, liquidity formation, and order flow dynamics in a controlled, research-driven environment.
 
