@@ -1,3 +1,157 @@
+# Order Matching Engine (C++ / Python)
+
+High-performance Central Limit Order Book (CLOB) simulation replicating exchange-style price-time priority matching, supporting market / limit orders, cancellations, and real-time PnL tracking.
+
+Designed to model execution mechanics, liquidity formation, and order flow dynamics in a controlled, research-driven environment.
+
+## Overview
+This project implements a simplified exchange matching engine that simulates how modern electronic markets match incoming buy and sell orders.
+
+The engine maintains a live limit order book and processes incoming orders using strict price-time priority, enabling realistic modelling of execution outcomes under different market conditions.
+
+It is designed for experimentation with:
+- Order flow dynamics
+- Liquidity and execution quality
+- PnL sensitivity to market structure
+- Cancellation behaviour and queue priority
+
+## Core Features
+
+| Feature                    | Description                                                                      |
+|----------------------------|----------------------------------------------------------------------------------|
+| Order Matching Engine      | Limit & market order matching with strict price-time priority (FIFO execution).  |
+| Order Lifecycle Management | Supports order submission, execution, and cancellation via unique order IDs.     |
+| PnL Tracking               | Real-time PnL computation from executed trades.                                  |
+| Market Data Simulation     | CSV-based synthetic order flow generator for testing different liquidity regimes.|
+| Python Reference Model     | Simplified prototype for validation and experimentation.                         |
+
+### Order Matching Engine
+- Support for Limit and Market orders </br>
+- Strict price-time priority (FIFO within price levels) </br>
+- Immediate execution where possible, otherwise resting in book </br>
+
+### Order Lifecycle Management
+- Full support for order submission, matching, and cancellation </br>
+- Cancel orders remove resting liquidity using unique order IDs </br>
+- Automatic cleanup of empty price levels </br>
+
+### PnL Engine
+- Real-time trade-based PnL tracking </br>
+- Captures directional exposure from fills </br>
+- Enables analysis of execution quality under different flow regimes </br>
+
+### Market Data Simulation
+Configurable CSV-based synthetic order flow generator </br>
+
+Supports:
+- Market / Limit order ratios
+- Cancellation intensity
+- Randomised tickers, prices, and volumes
+- Used for stress-testing liquidity and matching behaviour
+
+### Multi-Language Implementation
+- C++ engine for high-performance simulation
+- Python reference implementation for prototyping and validation
+
+## System Design
+The order book is implemented as a hierarchical structure:
+
+```
+Ticker → Side → Price Level → FIFO Queue (Orders)
+```
+
+This design enables:
+- Fast insertion and lookup at price levels
+- Deterministic FIFO execution within levels
+- Efficient order cancellation and cleanup
+
+</br>
+
+Price-time priority is strictly enforced:
+- Best price executes first
+- Within same price, earliest order has priority
+
+## Simulation Capabilities
+The built-in generator produces synthetic order flow for testing:
+- Market vs limit order distribution control
+- Adjustable cancel rate (liquidity churn simulation)
+- Randomised order arrival and volume distribution
+- Reproducible order book stress scenarios
+
+</br>
+
+This enables analysis of:
+- Execution latency impact
+- Liquidity depth under varying flow regimes
+- Queue position and fill probability dynamics
+
+## Python Reference Model
+A simplified Python version is included to:
+- Validate matching logic
+- Prototype order flow scenarios
+- Provide an interpretable version of the engine
+
+## Motivation
+Modern electronic markets are driven by:
+- Order flow imbalance
+- Queue position effects
+- Liquidity fragmentation
+- Cancellation-driven microstructure noise
+
+This project was built to better understand how these mechanisms interact and how they impact execution outcomes in a controlled environment.
+
+## Tech Stack
+- C++17 (core matching engine)
+- Python (reference + prototyping)
+- STL (deque, unordered_map, map)
+- CSV-based simulation pipeline
+
+## Key Concepts Modeled
+- Limit Order Book mechanics
+- Price-time priority execution
+- Market microstructure dynamics
+- Order flow simulation
+- Execution and PnL formation
+
+## Example Outputs
+Below are sample outputs illustrating how the engine behaves under different market conditions.
+
+### Trading Ladder View (Add-Only Flow)
+<img width="409" height="511" alt="Trading Ladder View (Add-Only)" src="https://github.com/user-attachments/assets/3e34ba41-6152-47d9-a9f7-f68f4abfd972" />
+
+</br>
+Displays the live bid / ask ladder after processing limit and market orders. </br>
+Shows price levels, queue depth, and how liquidity accumulates over time.
+</br></br>
+
+### Trading Ladder with Cancellations
+<img width="396" height="233" alt="Trading Ladder View (Add and Cancel)" src="https://github.com/user-attachments/assets/d1950ba5-2b0b-45ad-a295-1efdb3bc18de" />
+
+</br>
+Demonstrates how cancellations remove resting liquidity and reshape the order book. </br>
+Highlights the impact of cancel intensity on available depth and execution conditions.
+</br></br>
+
+### Snapshot View
+<img width="405" height="496" alt="Snapshot View (Add-Only)" src="https://github.com/user-attachments/assets/b79f296f-72bd-45a8-8e1c-48120d1b5396" />
+
+</br>
+Provides a structured snapshot of the order book at a given time, </br>
+useful for analysing state transitions and liquidity distribution.
+</br></br>
+
+### Synthetic Order Flow (CSV Generator)
+<img width="298" height="496" alt="image" src="https://github.com/user-attachments/assets/52bdb13e-576b-488d-a909-98cec89fdd1d" />
+
+</br>
+Example of generated order flow used to simulate different market regimes, </br>
+including varying market / limit ratios and cancellation behaviour.
+</br></br></br></br>
+
+
+<details>
+<summary><strong>Detailed Implementation & Usage</strong></summary>
+
 # Order Matching Engine with Cancel & PnL Functionality
 A fast, extensible Central Limit Order Book (CLOB) simulation written in C++ and Python, capable of processing Market and Limit Orders, tracking Profit & Loss (PnL), and handling cancelled orders. You can query snapshots of the order book at any time to inspect the state of outstanding orders for specific tickers.
 
@@ -169,7 +323,7 @@ ID	Ticker	Action	Type	Side	Price	Volume	Cancel_Target_ID
 | Cancel_Target_ID              | ID of the limit order to cancel, -1 if not a cancel                          |
 
 ## Example Outputs
-Here is how the engine behaves during a typical query session:
+Below are sample outputs illustrating how the engine behaves under different market conditions.
 
 ### C++ (Add-Only Orders)
 ### C++ Entering Query
@@ -192,3 +346,6 @@ Here is how the engine behaves during a typical query session:
 
 ### Example CSV Generation
 <img width="152" height="253" alt="image" src="https://github.com/user-attachments/assets/52bdb13e-576b-488d-a909-98cec89fdd1d" />
+
+</details>
+</br></br>
