@@ -15,6 +15,15 @@ It is designed for experimentation with:
 - PnL sensitivity to market structure
 - Cancellation behaviour and queue priority
 
+## Market Context
+Modern electronic markets are driven by:
+- Order flow imbalance
+- Queue position effects
+- Liquidity fragmentation
+- Cancellation-driven microstructure noise
+
+This project was built to better understand how these mechanisms interact and how they impact execution outcomes in a controlled environment.
+
 ## Core Features
 
 | Feature                    | Description                                                                      |
@@ -53,6 +62,22 @@ Supports:
 - C++ engine for high-performance simulation
 - Python reference implementation for prototyping and validation
 
+## Key Insights
+### Queue position is a primary driver of execution quality
+- Fill probability is highly sensitive to queue position, often more than price level itself.
+- Small differences in order timing can significantly impact realized execution.
+
+###  Liquidity is unstable under high cancellation rates
+- Increased cancellation intensity creates “ghost liquidity,” where displayed depth overstates actual executable volume.
+- This leads to misleading signals if not accounted for.
+
+### Order flow imbalance drives short-term price pressure
+- Sustained imbalance between aggressive buy and sell orders leads to directional price movement, even without fundamental changes.
+- This reinforces the importance of flow-based signals.
+
+### Execution outcomes are path-dependent
+- Identical strategies can produce different PnL outcomes depending on order arrival sequences, highlighting the importance of modeling temporal dynamics rather than static snapshots.
+
 ## System Design
 The order book is implemented as a hierarchical structure:
 
@@ -90,15 +115,6 @@ A simplified Python version is included to:
 - Validate matching logic
 - Prototype order flow scenarios
 - Provide an interpretable version of the engine
-
-## Motivation
-Modern electronic markets are driven by:
-- Order flow imbalance
-- Queue position effects
-- Liquidity fragmentation
-- Cancellation-driven microstructure noise
-
-This project was built to better understand how these mechanisms interact and how they impact execution outcomes in a controlled environment.
 
 ## Tech Stack
 - C++17 (core matching engine)
