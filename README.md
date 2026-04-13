@@ -1,8 +1,8 @@
-# Order Matching Engine (C++ / Python)
+# Market Microstructure Model - Central Limit Order Book Simulation (C++ / Python)
 
 High-performance Central Limit Order Book (CLOB) simulation replicating exchange-style **price-time priority matching**, supporting market / limit orders, cancellations, and real-time PnL tracking.
 
-Designed to model execution mechanics, liquidity formation, and order flow dynamics in a controlled, research-driven environment.
+The order matching engine is designed to model execution mechanics, liquidity formation, and order flow dynamics in a controlled, research-driven environment.
 
 ## Overview
 This project implements a simplified exchange matching engine that simulates how modern electronic markets match incoming buy and sell orders.
