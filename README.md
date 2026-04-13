@@ -1,5 +1,70 @@
-# Market Microstructure Model - Central Limit Order Book Simulation (C++ / Python)
+# Market Microstructure Model - Central Limit Order Book Simulation
+A high-performance limit order book simulation (C++ / Python) modeling execution quality under price-time priority matching.
 
+Designed to study how microstructure mechanics drive short-term PnL and fill probability.
+
+## Core Idea
+Execution quality is not determined by price alone, but by:
+
+    Queue position, order flow, and cancellation dynamics
+
+## Why this matters
+This reflects real trading environments where:
+- Liquidity is conditional, not static
+- Execution depends on queue priority
+- Order flow is informationally rich
+- Small timing differences dominate outcomes
+
+## System Mechanics
+- Limit + market order matching
+- Strict price-time priority (FIFO per price level)
+- Order cancellation and liquidity removal
+- Real-time execution and PnL tracking
+
+## Key Observations
+- Queue position dominates fill probability
+- Displayed liquidity often overstates executable liquidity
+- Cancellation intensity distorts market depth
+- Execution is highly path-dependent
+
+## Trading Interpretation
+This models:
+- Passive execution risk
+- Market making queue dynamics
+- Short-term liquidity formation
+- Adverse selection from order flow
+
+## Core Insight
+Execution is fundamentally a probability problem over queue position, not a static price problem.
+
+## Example Outputs
+Below are sample outputs illustrating how the engine behaves under different market conditions.
+
+### Trading Ladder View (Add-Only Flow)
+<img width="409" height="511" alt="Trading Ladder View (Add-Only)" src="https://github.com/user-attachments/assets/3e34ba41-6152-47d9-a9f7-f68f4abfd972" />
+
+</br>
+Displays the live bid / ask ladder after processing limit and market orders. </br>
+Shows price levels, queue depth, and how liquidity accumulates over time.
+</br></br>
+
+### Snapshot View
+<img width="405" height="496" alt="Snapshot View (Add-Only)" src="https://github.com/user-attachments/assets/b79f296f-72bd-45a8-8e1c-48120d1b5396" />
+
+</br>
+Provides a structured snapshot of the order book at a given time, </br>
+useful for analysing state transitions and liquidity distribution.
+</br></br>
+
+
+</br></br></br></br>
+
+
+<details>
+<summary><strong>Detailed Implementation & Usage</strong></summary>
+
+
+# Market Microstructure Model - Central Limit Order Book Simulation (C++ / Python)
 High-performance Central Limit Order Book (CLOB) simulation replicating exchange-style **price-time priority matching**, supporting market / limit orders, cancellations, and real-time PnL tracking.
 
 The order matching engine is designed to model execution mechanics, liquidity formation, and order flow dynamics in a controlled, research-driven environment.
@@ -162,6 +227,7 @@ useful for analysing state transitions and liquidity distribution.
 </br>
 Example of generated order flow used to simulate different market regimes, </br>
 including varying market / limit ratios and cancellation behaviour.
+
 </br></br></br></br>
 
 
@@ -362,6 +428,9 @@ Below are sample outputs illustrating how the engine behaves under different mar
 
 ### Example CSV Generation
 <img width="152" height="253" alt="image" src="https://github.com/user-attachments/assets/52bdb13e-576b-488d-a909-98cec89fdd1d" />
+
+</details>
+</br></br>
 
 </details>
 </br></br>
