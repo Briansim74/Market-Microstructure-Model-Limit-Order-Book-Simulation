@@ -1,101 +1,36 @@
 # Market Microstructure Model - Central Limit Order Book Simulation
-High-performance limit order book simulation modeling order-driven execution, queue priority, and short-term liquidity formation under price-time priority.
 
-Built to understand how execution quality emerges from order flow rather than price alone.
+## Trading Problem
+Execution in order-driven markets is determined by microstructure, not price alone.
+
+Queue position, order flow, and liquidity dynamics determine realized PnL.
 
 ## Core Idea
-In order-driven markets, execution is determined by microstructure, not just price levels:
-- Queue position determines fill probability
-- Order flow drives short-term price pressure
-- Cancellations distort visible liquidity
-- Execution is inherently probabilistic and path-dependent
+A price-time priority limit order book is simulated to study:
+- Execution probability
+- Liquidity formation
+- Order flow impact on short-term price behavior
 
-## Why this matters (Trading Perspective)
-This models the core mechanics behind:
-- Passive execution and queue risk
-- Market making fill probability
-- Short-term liquidity changes
-- Adverse selection from order flow imbalance
-
-## System Design
-The order book is implemented as:
-```
-Price Level → FIFO Queue → Order Execution
-```
-Key properties:
-- Strict price-time priority (FIFO)
-- Deterministic matching at each price level
-- Efficient order insertion, execution, and cancellation handling
-
-## Key Observations
-- Queue position dominates fill probability
-- Displayed liquidity often overstates executable liquidity
-- Cancellation intensity distorts market depth
-- Execution is highly path-dependent
-
-## Trading Interpretation
+## Trading Mapping
 This models:
 - Passive execution risk
 - Market making queue dynamics
-- Short-term liquidity formation
-- Adverse selection from order flow
+- Short-term liquidity shifts
+- Adverse selection from order flow imbalance
 
-## Core Engine Features
-### Order Matching Engine
-- Limit + market order execution
-- Strict price-time priority (FIFO)
-- Immediate match or resting in book
+## Key Mechanisms
+- Price-time priority (FIFO matching)
+- Market / limit / cancel order flow
+- Liquidity evolution under stochastic arrival processes
 
-### Order Lifecycle
-- Add / match / cancel order support
-- Unique order ID tracking
-- Automatic book cleanup after fills
+## Key Insights
+- Queue position is a primary driver of fill probability
+- Displayed liquidity ≠ executable liquidity
+- Order flow imbalance creates short-term directional pressure
+- Execution is inherently path-dependent
 
-### Execution & PnL Tracking
-- Real-time trade-based PnL updates
-- Exposure tracking from executed fills
-- Execution quality analysis across flow regimes
-
-### Market Data Simulation
-- Synthetic order flow generator (CSV-based)
-- Configurable:
-  - market / limit ratio
-  - cancellation intensity
-  - volume distribution
-- Used to stress-test liquidity conditions
-
-## Key Trading Insights
-### 1. Queue position dominates execution
-Fill probability is driven more by position in queue than price level itself.
-
-### 2. Liquidity is not static
-Displayed depth often overstates executable liquidity due to cancellations and churn.
-
-### 3. Order flow drives short-term movement
-Persistent buy/sell imbalance creates directional pressure independent of fundamentals.
-
-### 4. Execution is path-dependent
-Identical strategies produce different outcomes depending on order arrival sequence.
-
-## Simulation Capabilities
-Supports controlled experimentation of:
-- Queue position vs fill probability
-- Liquidity under varying cancellation regimes
-- Execution sensitivity to order timing
-- Market impact from order flow imbalance
-
-## Tech Stack
-- C++17 (core matching engine)
-- Python (analysis + validation layer)
-- STL (deque, map, unordered_map)
-- CSV-based synthetic data generation
-
-## Key Concepts Modeled
-- Limit Order Book dynamics
-- Price-time priority execution
-- Order flow-driven price pressure
-- Execution probability under queue constraints
-
+## Core Takeaway
+Execution quality emerges from microstructure, not price levels.
 
 ## Example Outputs
 Below are sample outputs illustrating how the engine behaves under different market conditions.
