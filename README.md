@@ -1,36 +1,37 @@
 # Market Microstructure Model - Central Limit Order Book Simulation
+Designed for scenario-based analysis of execution risk under varying liquidity conditions.
 
 ## Trading Problem
 Execution in order-driven markets is determined by microstructure, not price alone.
 
-Queue position, order flow, and liquidity dynamics determine realized PnL.
+Queue position, order arrival dynamics, and liquidity depth determine execution outcomes.
 
 ## Core Idea
-A price-time priority limit order book is simulated to study:
-- Execution probability
-- Liquidity formation
-- Order flow impact on short-term price behavior
+A price-time priority limit order book simulator is built to model execution under stochastic order flow.
+
+The system focuses on how execution uncertainty emerges from matching mechanics and queue priority.
 
 ## Trading Mapping
 This models:
-- Passive execution risk
-- Market making queue dynamics
-- Short-term liquidity shifts
-- Adverse selection from order flow imbalance
+- Passive execution risk under queue position uncertainty
+- Market vs limit order interaction in liquidity consumption
+- Queue dynamics in market making environments
+- Path-dependent execution outcomes under stochastic order arrival
 
 ## Key Mechanisms
 - Price-time priority (FIFO matching)
 - Market / limit / cancel order flow
-- Liquidity evolution under stochastic arrival processes
+- Order book liquidity depletion and replenishment dynamics
+- Partial fills and queue-based execution
 
 ## Key Insights
-- Queue position is a primary driver of fill probability
-- Displayed liquidity ≠ executable liquidity
-- Order flow imbalance creates short-term directional pressure
-- Execution is inherently path-dependent
+- Queue position is a primary driver of execution probability in passive order flow
+- Displayed liquidity is not equivalent to executable liquidity under fast order flow
+- Execution outcomes are path-dependent and sensitive to order arrival sequence
+- Liquidity consumption dynamics determine short-horizon fill uncertainty
 
 ## Core Takeaway
-Execution quality emerges from microstructure, not price levels.
+Execution outcomes emerge from microstructure mechanics - specifically queue priority and stochastic liquidity interaction - rather than price levels alone.
 
 ## Example Outputs
 Below are sample outputs illustrating how the engine behaves under different market conditions.
